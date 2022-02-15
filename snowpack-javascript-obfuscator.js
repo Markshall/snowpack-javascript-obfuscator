@@ -5,7 +5,9 @@ module.exports = (snowpackConfig, pluginOptions = {}) => {
   return {
     name: "snowpack-javascript-obfuscator",
 
-    async transform({ contents, fileExt, filePath }) {
+    async transform({ contents, fileExt, filePath, isDev }) {
+      if (isDev) return contents; // don't obfuscate if running in dev server
+
       // check if we are only obfuscating specific files
       if ("filesToObfuscate" in pluginOptions) {
         if (
