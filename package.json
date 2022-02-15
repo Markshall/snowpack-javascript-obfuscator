@@ -10,5 +10,6 @@
   "license": "ISC",
   "devDependencies": {
     "javascript-obfuscator": "^4.0.0"
-  }
+  },
+  "keywords": ["javascript", "obfuscate", "obfuscator", "snowpack"]
 }
