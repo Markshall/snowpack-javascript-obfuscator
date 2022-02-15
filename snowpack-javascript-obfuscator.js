@@ -7,23 +7,23 @@ module.exports = (snowpackConfig, pluginOptions = {}) => {
 
     async transform({ contents, fileExt, filePath, isDev }) {
       if (isDev) return contents; // don't obfuscate if running in dev server
+      if (fileExt !== ".js") return contents; // we only care about .js files
+
+      const { jsObfuscatorOpts = {} } = pluginOptions;
 
       // check if we are only obfuscating specific files
       if ("filesToObfuscate" in pluginOptions) {
-        if (
-          fileExt === ".js" &&
-          pluginOptions.filesToObfuscate.includes(filePath)
-        ) {
+        if (pluginOptions.filesToObfuscate.includes(filePath)) {
           return JavaScriptObfuscator.obfuscate(
             contents,
-            pluginOptions.jsObfuscatorOpts ?? {}
+            jsObfuscatorOpts
           ).getObfuscatedCode();
         }
       } else {
         // if not, obfuscate all
         return JavaScriptObfuscator.obfuscate(
           contents,
-          pluginOptions.jsObfuscatorOpts ?? {}
+          jsObfuscatorOpts
         ).getObfuscatedCode();
       }
     },
