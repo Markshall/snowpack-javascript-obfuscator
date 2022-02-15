@@ -1,5 +1,4 @@
 const JavaScriptObfuscator = require("javascript-obfuscator");
-const path = require("path");
 
 module.exports = (snowpackConfig, pluginOptions = {}) => {
   return {
